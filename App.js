@@ -1,21 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import Person from './components/Person'
 
 
 export default function App() {
   const [people, setPeople] = useState([
-    { name: 'adam',   key: '1'},
-    { name: 'log',    key: '2'},
-    { name: 'micol',  key: '3'},
-    { name: 'sachin', key: '4'},
-    { name: 'max',    key: '5'},
-    { name: 'evren',  key: '6'},
-    { name: 'logan',  key: '7'},
-    { name: 'biden',  key: '8'},
-    { name: 'trump',  key: '9'},
-  ]) 
+    { name: 'adam',   id: '1'},
+    { name: 'log',    id: '2'},
+    { name: 'micol',  id: '3'},
+    { name: 'sachin', id: '4'},
+    { name: 'max',    id: '5'},
+    { name: 'evren',  id: '6'},
+    { name: 'logan',  id: '7'},
+    { name: 'biden',  id: '8'},
+    { name: 'trump',  id: '9'},
+  ]);
+
+  const pressHandler = (id) => {
+    console.log(id);
+    setPeople((prevPeople) => {
+      return prevPeople.filter(person => person.id != id);
+    })
+  }
 
   return (
     //You can use the map function or FlatList to output a list 
@@ -27,22 +34,12 @@ export default function App() {
         keyExtractor={(item) => people.id}
         data={people}
         renderItem={({item}) => (
-          <Text style={styles.item}>{item.name}</Text>
+          <TouchableOpacity onPress={() => pressHandler(item.id)}>
+            <Text style={styles.item}>{item.name}</Text>
+          </TouchableOpacity>
           )}
       />
     </View>
-
-
-    // or you can do it with map()
-    // <ScrollView style={styles.container}>
-    //   { people.map((item) => {
-    //     return (
-    //       <View key ={item.key}>
-    //         <Text style={styles.item}>{item.name}</Text>
-    //       </View>
-    //     )
-    //   })}
-    // </ScrollView>
   );
 }
 
