@@ -4,6 +4,7 @@ import Header from './components/header';
 import ToDoItem from './components/todoItem';
 import AddTodo from './components/addTodo';
 import { v4 as uuidv4 } from 'uuid';
+import Sandbox from './components/sandbox'
 
 export default function App() {
 
@@ -37,26 +38,26 @@ export default function App() {
 
 
   return ( 
-
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-       console.log('dismissed keyboard')
-       }}>
-      <View style={styles.container}>
-      <Header/>
-        <View style={styles.content}>
-        <AddTodo submitHandler={submitHandler}/>
-          <View style={styles.list}>
-            <FlatList
-            data={todos}
-            renderItem={({item}) => (
-            <ToDoItem item={item} pressHandler={pressHandler}/>
-            )}
-            />
-          </View>
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+    <Sandbox/>
+  //   <TouchableWithoutFeedback onPress={() => {
+  //     Keyboard.dismiss();
+  //      console.log('dismissed keyboard')
+  //      }}>
+  //     <View style={styles.container}>
+  //     <Header/>
+  //       <View style={styles.content}>
+  //       <AddTodo submitHandler={submitHandler}/>
+  //         <View style={styles.list}>
+  //           <FlatList
+  //           data={todos}
+  //           renderItem={({item}) => (
+  //           <ToDoItem item={item} pressHandler={pressHandler}/>
+  //           )}
+  //           />
+  //         </View>
+  //       </View>
+  //     </View>
+  //   </TouchableWithoutFeedback>
   );
 }
 
