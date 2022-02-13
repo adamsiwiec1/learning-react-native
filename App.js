@@ -1,40 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import Person from './components/Person'
 
 
 export default function App() {
-  const [person, setPerson] = useState({}) 
+  const [people, setPeople] = useState([
+    { name: 'adam',   key: '1'},
+    { name: 'log',    key: '2'},
+    { name: 'micol',  key: '3'},
+    { name: 'sachin', key: '4'},
+    { name: 'max',    key: '5'},
+    { name: 'evren',  key: '6'},
+    { name: 'logan',  key: '7'},
+    { name: 'biden',  key: '8'},
+    { name: 'trump',  key: '9'},
+  ]) 
 
   return (
-
- // Update State Real Time as Typing with Text Input
-    <View style={styles.container}>
-      <Text>Enter name:</Text>
-
-      <TextInput
-      multiline
-      style={styles.input}
-      placeholder='e.g Raj Bal'
-      onChangeText={(val) => setPerson({name: val, age: person.age})}
-      />
-
-
-      <Text>Enter age:</Text>
-      <TextInput
-      keyboardType='numeric' // Many different props you can add to a text input field
-      style={styles.input}
-      placeholder='e.g 20'
-      onChangeText={(val) => setPerson({name: person.name, age: val})}
-      />  
-
-      <Text>name: {person.name} age: {person.age}</Text>
-    </View>
-
-
-
-
+    // Update State Real Time as Typing with Text Input
+    <ScrollView style={styles.container}>
+      { people.map((item) => {
+        return (
+          <View key ={item.key}>
+            <Text style={styles.item}>{item.name}</Text>
+          </View>
+        )
+      })}
+    </ScrollView>
   );
 }
 
@@ -42,15 +35,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 40,
+    paddingHorizontal: 20
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
-
+  item: {
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: 'pink',
+    fontSize: 24
   }
 });
