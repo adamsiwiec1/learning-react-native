@@ -5,7 +5,7 @@ export default function Header() {
 
     return (
         <View style={styles.header}>
-            <Text style={styles.title}>My Todo List</Text>
+            <Text style={styles.title}>My Task List</Text>
         </View>
     )
 }
