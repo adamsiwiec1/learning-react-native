@@ -1,44 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView, FlatList, TouchableOpacity } from 'react-native';
-import Person from './components/Person'
-
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import Header from './components/header';
+import ToDoItem from './components/todoItem';
+import AddTodo from './components/addTodo';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function App() {
-  const [people, setPeople] = useState([
-    { name: 'adam',   id: '1'},
-    { name: 'log',    id: '2'},
-    { name: 'micol',  id: '3'},
-    { name: 'sachin', id: '4'},
-    { name: 'max',    id: '5'},
-    { name: 'evren',  id: '6'},
-    { name: 'logan',  id: '7'},
-    { name: 'biden',  id: '8'},
-    { name: 'trump',  id: '9'},
-  ]);
 
-  const pressHandler = (id) => {
-    console.log(id);
-    setPeople((prevPeople) => {
-      return prevPeople.filter(person => person.id != id);
-    })
+  const [todos, setTodos] = useState([
+    { text: 'go grocery shopping',  key: '1' },
+    { text: 'motorcyle ride',       key: '2' },
+    { text: 'write code',           key: '3' },
+  ])
+
+  const pressHandler = (key) => {
+    setTodos((prevTodos) => {
+    return prevTodos.filter(todo => todo.key != key);
+  });
   }
 
-  return (
-    //You can use the map function or FlatList to output a list 
+  const submitHandler = (text) => {
+    setTodos((prevTodos) => {
+      return [
+        { text: text,key: uuidv4() },
+        ...prevTodos // ... is same as * in python
+      ]
+    });
+  }
 
-    // The better way to do it
+
+  return ( 
     <View style={styles.container}>
-      <FlatList 
-        numColumns={2}
-        keyExtractor={(item) => people.id}
-        data={people}
-        renderItem={({item}) => (
-          <TouchableOpacity onPress={() => pressHandler(item.id)}>
-            <Text style={styles.item}>{item.name}</Text>
-          </TouchableOpacity>
-          )}
-      />
+        {/* header */}
+        <Header/>
+        <View style={styles.container}>
+          <View style={styles.content}>
+            <AddTodo submitHandler={submitHandler}/>
+            <View style={styles.list}>
+              <FlatList
+              data={todos}
+              renderItem={({item}) => (
+                <ToDoItem item={item} pressHandler={pressHandler}></ToDoItem>
+              )}
+              />
+            </View>
+          </View>
+        </View>
     </View>
   );
 }
@@ -47,17 +54,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 40,
-    paddingHorizontal: 20
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
-  item: {
-    marginTop: 24,
-    padding: 30,
-    backgroundColor: 'black',
-    color: 'white',
-    fontSize: 24,
-    marginHorizontal: 10
+  content: {
+    padding: 40,
+  },
+  list: {
+    marginTop: 20,
   }
 });
