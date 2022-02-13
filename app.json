@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "FormsAndEssentials",
+    "slug": "FormsAndEssentials",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
