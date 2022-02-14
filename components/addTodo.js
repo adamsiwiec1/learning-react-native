@@ -3,14 +3,14 @@ import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function AddTodo({ submitHandler }) {
 
-    const [text, setText] = useState('');
+    const [task, setText] = useState({text: '', date: ''});
 
     const changeHandler = (val) => {
         setText(val)
     }
 
     const pressHandler = () => {
-        submitHandler(text);
+        submitHandler(task);
         setText('');
     }
 
@@ -20,13 +20,17 @@ export default function AddTodo({ submitHandler }) {
                 style={styles.input}
                 placeholder='new task..'
                 onChangeText={changeHandler}
-                value={text}
+                value={task}
             />
-            <Button
-                onPress={pressHandler}
-                title='add task'
-                color='coral'
-            />
+            <View style={styles.btn}>
+                <Button
+                    onPress={pressHandler}
+                    title='add task'
+                    color='white'
+                    size='lg'
+                />
+            </View>
+
         </View>
     );
 }
@@ -39,6 +43,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
         paddingVertical: 6,
         borderBottomWidth: 1,
-        borderBottomColor: '#ddd'
+
     },
+    btn: {
+        backgroundColor: 'black',
+        borderWidth: 1,
+        borderRadius: 10,
+    }
 });
